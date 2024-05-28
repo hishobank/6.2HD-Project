@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  app:
+    image: hishobank/project:latest
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: test
+    networks:
+      - test-net
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    networks:
+      - test-net
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+networks:
+  test-net:
+
+volumes:
+  postgres-data:
